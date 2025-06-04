@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leveraging Surveillance, Data Systems, and Public Datasets to Advance Implementation Science</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Updated Google Fonts: Lora for headings, Open Sans for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif; /* Default body font */
+            overscroll-behavior: none; 
+            background-color: #f8fafc; /* Tailwind slate-50 */
+        }
+        .slide {
+            display: none; 
+            min-height: 85vh; 
+            scroll-snap-align: start; 
+        }
+        .slide.active {
+            display: flex; 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Custom bullet points with new color */
+        .custom-ul li {
+            position: relative;
+            padding-left: 1.75rem; 
+            margin-bottom: 0.6rem;
+        }
+        .custom-ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6em; /* Adjusted for better vertical alignment */
+            transform: translateY(-50%);
+            height: 0.5rem; /* Made smaller */
+            width: 0.5rem; /* Made smaller */
+            border-radius: 50%;
+            background-color: #be123c; /* Tailwind rose-700 (Maroon) */
+        }
+        .slide-title {
+            font-family: 'Lora', serif; /* Heading font */
+            font-size: 2.1rem; 
+            line-height: 2.6rem; /* Adjusted for Lora */
+            font-weight: 700;
+            color: #1e293b; /* Tailwind slate-800 for strong contrast */
+            margin-bottom: 1.25rem; 
+        }
+        .slide-subtitle {
+            font-family: 'Lora', serif; /* Heading font */
+            font-size: 1.4rem; 
+            line-height: 2rem; /* Adjusted for Lora */
+            font-weight: 600;
+            color: #be123c; /* Tailwind rose-700 (Maroon) */
+            margin-bottom: 0.8rem; 
+        }
+        .slide-content {
+            font-family: 'Open Sans', sans-serif; /* Body font */
+            font-size: 1.05rem; 
+            line-height: 1.75rem; 
+            color: #334155; /* Tailwind slate-700 */
+        }
+        .highlight {
+            color: #be123c; /* Tailwind rose-700 (Maroon) */
+            font-weight: 600;
+        }
+        .nav-button {
+            background-color: #be123c; /* Tailwind rose-700 (Maroon) */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-family: 'Open Sans', sans-serif; /* Button font - Open Sans for better readability on buttons */
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: #9f1239; /* Tailwind rose-800 (Darker Maroon) */
+        }
+        .nav-button:disabled {
+            background-color: #fecdd3; /* Tailwind rose-200 (Light Maroon) */
+            color: #52525b; /* Tailwind zinc-600 for disabled text */
+            cursor: not-allowed;
+        }
+        .footer-nav {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        /* Specific overrides for quote block styling */
+        .quote-block {
+            border-left: 4px solid #e11d48; /* Tailwind rose-600 (Lighter Maroon for border) */
+            background-color: #fff1f2; /* Tailwind rose-50 (Very Light Maroon BG) */
+            color: #334155; /* Tailwind slate-700 */
+        }
+        .quote-block p {
+             font-family: 'Open Sans', sans-serif;
+        }
+        .equity-highlight { /* For the equity focus in CDC framework slide */
+            color: #c2410c; /* Tailwind orange-600 for distinct highlight - kept for contrast */
+            font-weight: 600;
+        }
+        .repository-link {
+            text-decoration: underline;
+            color: #9f1239; /* Darker Maroon for links */
+        }
+        .repository-link:hover {
+            color: #881337; /* Even darker on hover */
+        }
+
+
+        /* Small screen adjustments */
+        @media (max-width: 768px) {
+            .slide-title {
+                font-size: 1.75rem; 
+                line-height: 2.3rem; 
+            }
+            .slide-subtitle {
+                font-size: 1.15rem; 
+                line-height: 1.8rem; 
+            }
+            .slide-content {
+                font-size: 0.95rem; 
+                line-height: 1.55rem; 
+            }
+            .nav-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+            .custom-ul li {
+                padding-left: 1.5rem; /* Adjusted padding for smaller bullet */
+            }
+            .custom-ul li::before {
+                 height: 0.4rem; /* Made smaller for mobile */
+                 width: 0.4rem; /* Made smaller for mobile */
+                 top: 0.65em; /* Fine-tuned for mobile */
+            }
+            .footer-nav {
+                bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Slide Container -->
+    <div id="presentationContainer" class="w-full">
+
+        <!-- Slide 1: Title Slide -->
+        <div id="slide1" class="slide active p-4 md:p-10 text-center">
+            <div class="max-w-3xl mx-auto">
+                <h1 class="text-3xl md:text-5xl font-bold text-rose-700 mb-5" style="font-family: 'Lora', serif;">Leveraging Surveillance, Data Systems, and Public Datasets to Advance Implementation Science</h1>
+                <p class="text-lg md:text-2xl text-slate-600 mb-7" style="font-family: 'Lora', serif; font-weight: 500;">BRIDGE Didactic (June 20)</p>
+                <p class="text-md md:text-lg text-slate-500">Harnessing public data for impactful implementation.</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Session Overview & Goals -->
+        <div id="slide2" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title text-rose-700">What We'll Cover Today</h2>
+                <p class="slide-content mb-5">The goal is to strategically use surveillance systems and public datasets to enhance implementation research.</p>
+                <h3 class="slide-subtitle">Key Learning Objectives:</h3>
+                <ul class="custom-ul slide-content list-inside space-y-1">
+                    <li>Articulate core surveillance concepts for IS.</li>
+                    <li>Navigate key data systems & repositories.</li>
+                    <li>Critically evaluate datasets for IS questions (incl. equity).</li>
+                    <li>Integrate data with IS theories & frameworks (CFIR, EPIS).</li>
+                    <li>Measure implementation outcomes (Proctor, RE-AIM) using data.</li>
+                    <li>Analyze ethical implications & future directions.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: What is Public Health Surveillance? -->
+        <div id="slide3" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">What is Public Health Surveillance?</h2>
+                <p class="slide-subtitle">The Foundation of Public Health Action</p>
+                <p class="slide-content mb-3">"The <span class="highlight">ongoing, systematic collection, analysis, and interpretation</span> of health data essential to the planning, implementation, and evaluation of public health practice, closely integrated with the timely dissemination of [this information] to those who need to know" and act. (Groseclose & Buckeridge, 2017)</p>
+                <p class="slide-content">A surveillance system includes processes for data collection, quality monitoring, management, analysis, interpretation, dissemination, and <span class="highlight">application</span> to programs.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Why is Surveillance Key for IS? Action-Oriented Nature -->
+        <div id="slide4" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">The Action-Oriented Nature of Surveillance</h2>
+                <p class="slide-subtitle">A Direct Bridge to Implementation Science</p>
+                <blockquote class="quote-block pl-4 py-2 my-4 rounded-r-lg">
+                    <p class="italic text-sm md:text-base">"The reason for collecting, analyzing and disseminating information on a disease is to control that disease. Collection and analysis should not be allowed to consume resources if action does not follow. Appropriate action, therefore, becomes the ultimate goal..." - Dr. William Foege</p>
+                </blockquote>
+                <p class="slide-content mb-3">This <span class="highlight">action-orientation</span> is fundamental. IS is also about translating evidence into tangible actions.</p>
+                <p class="slide-content">Surveillance data helps identify <span class="highlight">what actions are needed</span> and evaluate <span class="highlight">if implemented actions are effective</span> at a population level.</p>
+                <p class="slide-content mt-2">Its "ongoing" nature supports assessing <span class="highlight">sustainability</span> of interventions.</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Strategic Objectives of Surveillance -->
+        <div id="slide5" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Strategic Objectives of Surveillance</h2>
+                <p class="slide-subtitle">Guiding Public Health & Implementation Efforts</p>
+                <ul class="custom-ul slide-content list-inside space-y-1 text-sm md:text-base">
+                    <li>Guide immediate public health action.</li>
+                    <li>Measure disease burden & monitor trends.</li>
+                    <li>Support early outbreak detection.</li>
+                    <li class="font-semibold" style="color: #be123c;">Guide planning, implementation, & evaluation of programs (Key for IS!)</li>
+                    <li>Evaluate public policy.</li>
+                    <li>Detect changes in health practices & their effects.</li>
+                    <li>Prioritize health resource allocation.</li>
+                </ul>
+                <p class="slide-content mt-3">Many surveillance systems are inherently designed with an end-use compatible with IS goals.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: The Broadening Horizon of Surveillance -->
+        <div id="slide6" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">The Broadening Horizon of Surveillance</h2>
+                <p class="slide-subtitle">Beyond Infectious Diseases</p>
+                <p class="slide-content mb-3">Scope now includes:</p>
+                <ul class="custom-ul slide-content list-inside space-y-1 text-sm md:text-base">
+                    <li>Chronic diseases, injuries, mental health.</li>
+                    <li>Health determinants (risk behaviors, SES, healthcare use).</li>
+                    <li>Impact of public health laws & policies.</li>
+                    <li>Environmental & occupational health.</li>
+                </ul>
+                <p class="slide-content mt-3">This expansion provides rich <span class="highlight">contextual data</span> for IS, informing frameworks like CFIR (Outer Setting, Individual Characteristics).</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: The Public Health Data Ecosystem -->
+        <div id="slide7" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">The Public Health Data Ecosystem</h2>
+                <p class="slide-subtitle">Diverse Systems for Implementation Insights</p>
+                <p class="slide-content mb-3">Key systems include:</p>
+                <ul class="custom-ul slide-content list-inside space-y-1 text-sm md:text-base">
+                    <li>Electronic Health Records (EHRs)</li>
+                    <li>Hospital & health system administrative databases</li>
+                    <li>Patient surveys (e.g., NHANES, BRFSS)</li>
+                    <li>Payee/Payor claims data</li>
+                    <li>Laboratory, vaccination, pharmacy information systems</li>
+                    <li>National Notifiable Diseases Surveillance System (NNDSS)</li>
+                    <li>Specialized registries (cancer, injury)</li>
+                </ul>
+                <p class="slide-content mt-2"><span class="highlight">EHRs</span> are particularly valuable for IS in healthcare, capturing granular data on provider behaviors and patient outcomes.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 8: Data Integration: A Key Trend -->
+        <div id="slide8" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Data Integration: A Key Trend</h2>
+                <p class="slide-subtitle">Creating a More Comprehensive View</p>
+                <p class="slide-content mb-3">Modern surveillance increasingly <span class="highlight">integrates data from multiple sources</span>.</p>
+                <p class="slide-content mb-3">This mirrors multi-level IS frameworks (CFIR, EPIS) that acknowledge influences at patient, provider, organization, and system levels.</p>
+                <p class="slide-content">Example: Combining EHR clinical detail + claims service use + census neighborhood data.</p>
+                <p class="slide-content mt-2">Implies a need for IS researchers to develop skills in <span class="highlight">data linkage and integrated analysis</span> or collaborate with experts.</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Accessing Major Public Data Repositories -->
+        <div id="slide9" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Accessing Major Public Data Repositories</h2>
+                <p class="slide-subtitle">Gateway to Valuable Information</p>
+                <div class="grid md:grid-cols-2 gap-3 slide-content text-sm">
+                    <div class="bg-white p-3 rounded-lg shadow">
+                        <h4 class="font-semibold text-rose-700 mb-1" style="font-family: 'Lora', serif;">
+                            <a href="https://wonder.cdc.gov/" target="_blank" class="repository-link">CDC WONDER</a>
+                        </h4>
+                        <p>Mortality, morbidity, births, cancer. Query system.</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow">
+                        <h4 class="font-semibold text-rose-700 mb-1" style="font-family: 'Lora', serif;">
+                             <a href="https://sharing.nih.gov/data-sharing-activities/repositories" target="_blank" class="repository-link">NIH Data Repositories (e.g., N3C)</a>
+                        </h4>
+                        <p>Clinical trial data, COVID-19 data.</p>
+                    </div>
+                     <div class="bg-white p-3 rounded-lg shadow">
+                        <h4 class="font-semibold text-rose-700 mb-1" style="font-family: 'Lora', serif;">
+                            <a href="https://www.who.int/data" target="_blank" class="repository-link">WHO Data Portals</a>
+                        </h4>
+                        <p>Global health statistics, health systems data.</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow">
+                        <h4 class="font-semibold text-rose-700 mb-1" style="font-family: 'Lora', serif;">
+                            <a href="https://www.ahrq.gov/data/index.html" target="_blank" class="repository-link">AHRQ Data (HCUP, MEPS)</a>
+                        </h4>
+                        <p>Healthcare utilization, cost, quality. Public & restricted files.</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow">
+                        <h4 class="font-semibold text-rose-700 mb-1" style="font-family: 'Lora', serif;">
+                            <a href="https://www.icpsr.umich.edu/web/pages/" target="_blank" class="repository-link">ICPSR</a>
+                        </h4>
+                        <p>Vast social/behavioral data, health surveys.</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow">
+                        <h4 class="font-semibold text-rose-700 mb-1" style="font-family: 'Lora', serif;">
+                            <a href="https://www.healthdata.gov/" target="_blank" class="repository-link">Healthdata.gov</a>
+                        </h4>
+                        <p>Aggregated U.S. federal health datasets.</p>
+                    </div>
+                </div>
+                <p class="slide-content mt-4">Access varies: public query, download, restricted via DUAs/IRB.</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Reframing IS Questions for Existing Datasets -->
+        <div id="slide10" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Reframing IS Questions for Existing Datasets</h2>
+                <p class="slide-subtitle">A Key Skill for Implementation Scientists</p>
+                <p class="slide-content mb-3">Public data repositories are often designed for epidemiology or health services research, not directly for IS.</p>
+                <p class="slide-content mb-3">Key IS skill: <span class="highlight">Creatively and rigorously reframe research questions</span> to identify or derive variables from existing datasets that serve as valid proxies or direct measures for IS constructs and outcomes.</p>
+                <p class="slide-content">Example: Using AHRQ HCUP service use data to assess 'penetration' of a new service, or CDC WONDER natality data for reach of a maternal health intervention.</p>
+                <p class="slide-content mt-2">Requires deep knowledge of IS theory and methodological acumen.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 11: Harnessing Administrative Data & EHRs -->
+        <div id="slide11" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Harnessing Administrative Data & EHRs</h2>
+                <p class="slide-subtitle">Rich Sources for Implementation Studies</p>
+                <p class="slide-content mb-3"><span class="highlight">Administrative Data:</span> Strengths in large population coverage, longitudinal tracking. May lack clinical detail or have coding inconsistencies.</p>
+                <p class="slide-content"><span class="highlight">Electronic Health Records (EHRs):</span> Rich clinical information, unparalleled for studying care processes, intervention fidelity, and patient outcomes within health systems.</p>
+                <p class="slide-content mt-2">NCI push for "transdisciplinary teams" to leverage large-scale data (admin, EHRs) for complex problems like cancer control highlights a critical role for IS expertise in behavior change, organizational context, and intervention design to translate "big data" insights into <span class="highlight">actionable, implemented solutions</span>.</p>
+            </div>
+        </div>
+
+        <!-- Slide 12: Novel Data Streams: Opportunities & Challenges -->
+        <div id="slide12" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Novel Data Streams: The Emerging Frontier</h2>
+                <p class="slide-subtitle">Opportunities and Challenges</p>
+                <p class="slide-content mb-3">Examples:</p>
+                <ul class="custom-ul slide-content list-inside space-y-1 text-sm md:text-base">
+                    <li>Social media (Twitter for flu, restaurant reviews for foodborne illness)</li>
+                    <li>Over-the-counter pharmacy sales data (syndromic trends)</li>
+                    <li>Search query surveillance (Google Flu Trends concept, dengue prediction)</li>
+                </ul>
+                <p class="slide-content mt-2"><span class="highlight">Opportunities:</span> Near real-time insights, rapid detection of sentiment or unintended consequences.</p>
+                <p class="slide-content mt-2"><span class="highlight">Challenges:</span> Rigorous validation needed, representativeness/bias concerns, complex ethics (privacy, consent). Information spread dynamics differ from disease spread.</p>
+                <p class="slide-content mt-2">IS Role: Develop robust methods for integration (e.g., triangulation) to harness timeliness while mitigating weaknesses.</p>
+            </div>
+        </div>
+
+        <!-- Slide 13: Evaluating Data Resources: CDC 2024 Framework -->
+        <div id="slide13" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Evaluating Data Resources: CDC 2024 Framework</h2>
+                <p class="slide-subtitle">Is This Dataset Fit for Your IS Purpose?</p>
+                <p class="slide-content mb-2 text-sm md:text-base">Nine Key Evaluation Constructs (CDC, 2024):</p>
+                <ol class="list-decimal list-inside slide-content space-y-1 text-sm md:text-base">
+                    <li>General attributes (metadata)</li>
+                    <li class="equity-highlight">Data coverage, representativeness, inclusion, & EQUITY</li>
+                    <li>Data standardization & quality</li>
+                    <li>Data period, periodicity, & recency</li>
+                    <li>Versatility of the data (linkage, longitudinal analysis)</li>
+                    <li>Utility of the data (for your research question!)</li>
+                    <li>Usability of data & resources (access, documentation)</li>
+                    <li>Adaptability of data & resources</li>
+                    <li>Stability of the data</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Slide 14: Focus on Equity in Data Evaluation -->
+        <div id="slide14" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Key Focus: Equity in Data Evaluation</h2>
+                <p class="slide-subtitle">A Core Tenet of the CDC 2024 Framework</p>
+                <p class="slide-content mb-3">The explicit inclusion of "<span class="equity-highlight">Data coverage, representativeness, inclusion, and equity</span>" signals an imperative for IS researchers.</p>
+                <p class="slide-content mb-3">Proactively assess and address potential biases. If not considered, these could inadvertently <span class="highlight">exacerbate health disparities</span>.</p>
+                <p class="slide-content">Rigorously examine representation of different populations and quality of equity-relevant variables (race, ethnicity, SES, disability).</p>
+                <p class="slide-content mt-2">The "Utility" construct also prompts justification of dataset choice for specific IS questions and desired outcomes.</p>
+            </div>
+        </div>
+
+        <!-- Slide 15: Leveraging Surveillance for Implementation Targets (CFIR) -->
+        <div id="slide15" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Informing Implementation Targets: CFIR</h2>
+                <p class="slide-subtitle">How Surveillance Data Maps to CFIR Constructs</p>
+                <p class="slide-content mb-3">Surveillance data helps define the "problem" and identify implementation gaps.</p>
+                <ul class="custom-ul slide-content list-inside space-y-1 text-sm md:text-base">
+                    <li><span class="font-medium">Outer Setting:</span> Population demographics, SES, patient needs, policy impact.</li>
+                    <li><span class="font-medium">Inner Setting:</span> Local practice patterns, resource availability (if local data exists).</li>
+                    <li><span class="font-medium">Characteristics of Individuals:</span> Population risk factors, health behaviors, literacy.</li>
+                    <li><span class="font-medium">Intervention Characteristics:</span> Population outcome data for evidence strength.</li>
+                </ul>
+                <p class="slide-content mt-2">Ongoing surveillance offers <span class="highlight">dynamic feedback</span> for adaptive implementation by monitoring contextual shifts.</p>
+            </div>
+        </div>
+
+        <!-- Slide 16: Leveraging Surveillance for Implementation Targets (EPIS) -->
+        <div id="slide16" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Informing Implementation Phases: EPIS</h2>
+                <p class="slide-subtitle">Surveillance Data Across the EPIS Framework</p>
+                 <ul class="custom-ul slide-content list-inside space-y-1 text-sm md:text-base">
+                    <li><span class="font-medium">Exploration Phase:</span> Vital for identifying needs, defining target populations, understanding key contextual factors.</li>
+                    <li><span class="font-medium">Preparation Phase:</span> Quantitative data (the "what") from surveillance can be synergized with qualitative insights from stakeholders (the "why") for more equitable and context-appropriate strategies.</li>
+                    <li><span class="font-medium">Implementation Phase:</span> Monitor early uptake and reach.</li>
+                    <li><span class="font-medium">Sustainment Phase:</span> Ideal mechanism for monitoring long-term impact and identifying needs for adaptation or booster strategies.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Slide 17: Designing Implementation Strategies with Surveillance -->
+        <div id="slide17" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Designing Implementation Strategies with Surveillance</h2>
+                <p class="slide-subtitle">Pinpointing Where and How to Intervene</p>
+                <p class="slide-content mb-3">Surveillance insights guide selection and tailoring of strategies by revealing barriers/facilitators at population/system levels.</p>
+                <p class="slide-content mb-2"><span class="highlight">Example 1:</span> Low cancer screening in a specific group/area? Strategies: improve access (mobile units), targeted outreach, reduce financial barriers.</p>
+                <p class="slide-content mb-2"><span class="highlight">Example 2:</span> Rapid rise in youth e-cigarette use? Strategies: swift counter-messaging, policy changes, school prevention.</p>
+                <p class="slide-content">Data on problem <span class="highlight">distribution</span> (e.g., "cold spots" of access, "hot spots" of disease) guides targeted resource allocation and tailoring for equity.</p>
+            </div>
+        </div>
+
+        <!-- Slide 18: Measuring Implementation Success: Proctor & RE-AIM -->
+        <div id="slide18" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Measuring Implementation Success</h2>
+                <p class="slide-subtitle">Aligning Proctor's Outcomes & RE-AIM with Surveillance</p>
+                <p class="slide-content mb-3">Surveillance data is powerful for measuring:</p>
+                <div class="grid md:grid-cols-2 gap-x-6 gap-y-2 slide-content text-sm md:text-base">
+                    <div>
+                        <h4 class="font-semibold text-rose-700 mb-1" style="font-family: 'Lora', serif;">Proctor's Outcomes:</h4>
+                        <ul class="custom-ul list-inside space-y-1">
+                            <li><span class="highlight">Penetration</span></li>
+                            <li>Adoption (by settings/providers)</li>
+                            <li><span class="highlight">Sustainability</span></li>
+                            <li>Implementation Cost (linked to admin data)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-rose-700 mb-1" style="font-family: 'Lora', serif;">RE-AIM Dimensions:</h4>
+                        <ul class="custom-ul list-inside space-y-1">
+                            <li><span class="highlight">Reach</span></li>
+                            <li>Adoption (by settings/providers)</li>
+                            <li><span class="highlight">Effectiveness</span> (population level)</li>
+                            <li><span class="highlight">Maintenance</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="slide-content mt-3">Moves beyond project-specific data to <span class="highlight">real-world, population-level impact</span>.</p>
+            </div>
+        </div>
+
+        <!-- Slide 19: Ensuring Rigor: Data Quality, Representativeness, Timeliness -->
+        <div id="slide19" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Ensuring Rigor in Data Use</h2>
+                <p class="slide-subtitle">Critical Appraisal of Data Attributes</p>
+                <p class="slide-content mb-3">Key attributes for evaluation (CDC guidelines):</p>
+                <ul class="custom-ul slide-content list-inside space-y-1 text-sm md:text-base">
+                    <li>Data quality (completeness, validity, accuracy, precision)</li>
+                    <li>Representativeness (geographic, demographic, equity)</li>
+                    <li>Timeliness, Sensitivity, Positive Predictive Value (PVP)</li>
+                    <li>Stability, Versatility, Usability</li>
+                </ul>
+                <p class="slide-content mt-2">Be aware of how limitations affect findings (e.g., misclassification bias, limited generalizability, delayed response).</p>
+                <p class="slide-content mt-2"><span class="highlight">Trade-offs exist:</span> e.g., improving sensitivity might decrease PVP or increase cost. The "best" data depends on the IS question and phase.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 20: Critical Scrutiny for Health Equity Variables -->
+        <div id="slide20" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Critique of Health Equity Variables</h2>
+                <p class="slide-subtitle">Essential for Responsible Implementation Science</p>
+                <p class="slide-content mb-3">Assess quality and completeness of data elements like race, ethnicity, SES, language, geography.</p>
+                <p class="slide-content mb-3">Errors or systemic missingness (e.g., misclassification of race for American Indians) can lead to <span class="highlight">flawed conclusions about disparities</span> and misdirected implementation efforts.</p>
+                <p class="slide-content">Strategies to mitigate: triangulation, sensitivity analyses, transparent reporting of limitations.</p>
+            </div>
+        </div>
+
+        <!-- Slide 21: Ethical Imperatives: Privacy, Security, Responsible Use -->
+        <div id="slide21" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Ethical Imperatives in Data Use</h2>
+                <p class="slide-subtitle">Privacy, Security, and Responsibility</p>
+                <ul class="custom-ul slide-content list-inside space-y-1 text-sm md:text-base">
+                    <li>Ensure confidentiality, integrity, availability of data.</li>
+                    <li>Adhere to Data Use Agreements (DUAs), IRB approvals, data protection.</li>
+                    <li>Novel data streams (social media, mHealth) bring new challenges: user privacy, informed consent ambiguity, algorithmic bias.</li>
+                    <li>Commitment to <span class="highlight">equitable application</span>: avoid stigmatization, ensure benefits reach underserved populations.</li>
+                    <li>Engage stakeholders and communities in data governance.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Slide 22: Data Justice & Group-Level Considerations -->
+        <div id="slide22" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Broader Ethical Lens: Data Justice</h2>
+                <p class="slide-subtitle">Considering Group-Level Harms and Benefits</p>
+                <p class="slide-content mb-3">With "big data" and integrated datasets, responsibility extends beyond individual privacy to potential <span class="highlight">group-level harms and benefits</span>.</p>
+                <p class="slide-content mb-3">Aggregated data could be used to profile or disadvantage communities (e.g., insurance, housing).</p>
+                <p class="slide-content">Conversely, it can advocate for resources or tailored interventions for those same communities.</p>
+                <p class="slide-content mt-2">IS researchers must navigate these complex "<span class="highlight">data justice</span>" issues, considering broader societal impacts.</p>
+            </div>
+        </div>
+
+        <!-- Slide 23: The Future: Informatics, AI, Big Data -->
+        <div id="slide23" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">The Future of Surveillance in IS</h2>
+                <p class="slide-subtitle">Innovations Shaping the Landscape</p>
+                <div class="grid md:grid-cols-2 gap-3 slide-content text-sm">
+                    <div class="bg-white p-3 rounded-lg shadow">
+                        <h4 class="font-semibold text-rose-700 mb-1" style="font-family: 'Lora', serif;">Health Informatics</h4>
+                        <p>Controlled terminologies, interoperability, automated case detection, rapid dissemination tools.</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow">
+                        <h4 class="font-semibold text-rose-700 mb-1" style="font-family: 'Lora', serif;">AI & Machine Learning</h4>
+                        <p>Predictive analytics, forecasting outbreaks, identifying high-risk individuals for proactive targeting.</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow">
+                        <h4 class="font-semibold text-rose-700 mb-1" style="font-family: 'Lora', serif;">Big Data Analytics</h4>
+                        <p>Integrating diverse, large-scale datasets for complex insights.</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow">
+                        <h4 class="font-semibold text-rose-700 mb-1" style="font-family: 'Lora', serif;">Participatory Surveillance</h4>
+                        <p>Citizen-reported data (e.g., Flu Near You) for localized efforts, rapid campaign feedback.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 24: IS Role in Evaluating Surveillance Innovations -->
+        <div id="slide24" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">IS Role in Evaluating Surveillance Innovations</h2>
+                <p class="slide-subtitle">A Symbiotic Relationship</p>
+                <p class="slide-content mb-3">There's a need for more "outcomes-focused research" and "cost-effectiveness analysis" of surveillance system innovations themselves.</p>
+                <p class="slide-content mb-3"><span class="highlight">Implementation science methodologies are uniquely well-suited</span> to assess the real-world impact, pragmatic use, and economic value of new surveillance methods (e.g., an AI outbreak tool) when implemented in practice.</p>
+                <p class="slide-content">This creates a cycle: surveillance advancements fuel IS research, and IS evaluates and optimizes the impact of these advancements.</p>
+                <p class="slide-content mt-2">Challenges: data silos, interoperability, workforce capacity, ensuring equitable deployment of tech.</p>
+            </div>
+        </div>
+
+        <!-- Slide 25: Group Activity Preview -->
+        <div id="slide25" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Engaging Group Activity: "From Data to D&I"</h2>
+                <p class="slide-subtitle">Designing a Surveillance-Informed Implementation Study</p>
+                <p class="slide-content mb-3">You'll work in small groups on a realistic public health scenario, using mock surveillance data to:</p>
+                <ul class="custom-ul slide-content list-inside space-y-1 text-sm md:text-base">
+                    <li>Refine the problem & identify target populations.</li>
+                    <li>Apply an IS framework (CFIR or EPIS).</li>
+                    <li>Select implementation outcomes & brainstorm measurement strategies using data.</li>
+                    <li>Identify key challenges and ethical considerations.</li>
+                </ul>
+                <p class="slide-content mt-3">Goal: Translate surveillance insights into an actionable IS research plan. <span class="highlight">Get ready to collaborate!</span></p>
+            </div>
+        </div>
+
+        <!-- Slide 26: Key Takeaways & Conclusion -->
+        <div id="slide26" class="slide p-4 md:p-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Key Takeaways & Conclusion</h2>
+                <p class="slide-subtitle">Harnessing Data for Impact</p>
+                <ul class="custom-ul slide-content list-inside space-y-2 text-sm md:text-base">
+                    <li>Surveillance is <span class="highlight">action-oriented</span> and foundational for IS.</li>
+                    <li>A rich landscape of <span class="highlight">data systems and public datasets</span> awaits exploration.</li>
+                    <li><span class="highlight">Critical evaluation</span> (especially for equity) is paramount.</li>
+                    <li>IS frameworks (CFIR, EPIS) and outcome models (Proctor, RE-AIM) structure <span class="highlight">data integration</span>.</li>
+                    <li>Ethical use and awareness of future innovations are crucial.</li>
+                </ul>
+                <p class="slide-content mt-4 font-semibold">Empower your research: Use data strategically to accelerate the translation of evidence into practice and improve population health.</p>
+            </div>
+        </div>
+
+        <!-- Slide 27: Q&A / Thank You -->
+        <div id="slide27" class="slide p-4 md:p-10 text-center">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="slide-title">Questions & Discussion</h2>
+                <img src="https://placehold.co/300x180/FFE4E6/BE123C?text=Thank+You!" alt="Thank you placeholder - maroon theme" class="mx-auto my-6 rounded-lg shadow-md">
+                <p class="slide-content">Let's discuss how you can apply these concepts to your work.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="footer-nav flex space-x-3">
+        <button id="prevButton" class="nav-button" onclick="changeSlide(-1)">Previous</button>
+        <button id="nextButton" class="nav-button" onclick="changeSlide(1)">Next</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(slideNumber) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            const activeSlide = document.getElementById('slide' + slideNumber);
+            if (activeSlide) {
+                activeSlide.classList.add('active');
+                window.scrollTo(0,0); // Scroll to top of slide
+            }
+
+            // Update button states
+            document.getElementById('prevButton').disabled = slideNumber === 1;
+            document.getElementById('nextButton').disabled = slideNumber === totalSlides;
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 1) {
+                currentSlide = 1;
+            }
+            if (currentSlide > totalSlides) {
+                currentSlide = totalSlides;
+            }
+            showSlide(currentSlide);
+        }
+
+        // Initialize first slide
+        showSlide(currentSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+                return; // Don't interfere with text input
+            }
+            if (event.key === 'ArrowRight' || event.key === ' ') { // Space bar for next slide
+                if (currentSlide < totalSlides) {
+                    changeSlide(1);
+                }
+                event.preventDefault(); 
+            } else if (event.key === 'ArrowLeft') {
+                if (currentSlide > 1) {
+                    changeSlide(-1);
+                }
+                event.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+</html>
